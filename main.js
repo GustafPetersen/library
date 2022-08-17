@@ -6,6 +6,7 @@ button.addEventListener('click', (e) => {
 }) */
 
 function Book(title, author, pages, haveRead) {
+  this.id = Math.random().toString(36).slice(2);
   this.title = title;
   this.author = author;
   this.pages = pages;
@@ -24,7 +25,8 @@ function Book(title, author, pages, haveRead) {
 function addBookToLibrary(title, author, pages, haveRead) {
   // do stuff here
   let book = new Book(title, author, pages, haveRead);
-  return myLibrary.push(book);
+  myLibrary.push(book);
+  return book;
 }
 
 // Displaying each book in the myLibrary array
@@ -98,14 +100,19 @@ const showInputValues = () => {
 // Event listener for Submission execution
 newSubmission.addEventListener("click", () => {
   console.log("Submission button clicked!");
-  addNewBook();
-  myLibrary.forEach((book, index) => {
-    if (index === 0){
-      createNewBookCard(book, index)
-    } else if (index > 0) {
-      createNewBookCard(book, index+1)
-    }
-  })
+  const book = addNewBook();
+  const newCard = createNewBookCard(book);
+  bookList.appendChild(newCard);
+
+  //   myLibrary.forEach((book, index) => {
+  //     if (index === 0){
+  //         const newCard = createNewBookCard(book, index);
+  //         bookList.appendChild(newCard);
+  //     } else if (index > 0) {
+  //       const newCard = createNewBookCard(book, index+1);
+  //       bookList.appendChild(newCard);
+  //     }
+  //   })
   eraseAllInput();
   // showInputValues()
   // displayBooks();
@@ -115,11 +122,10 @@ newSubmission.addEventListener("click", () => {
 });
 
 // creating the Cards for each book containing the info of the book.
-const createNewBookCard = (book, index) => {
+const createNewBookCard = (book) => {
   // console.log(book.title, book.author, book.pages, book.haveRead)
   const newCard = document.createElement(`div`);
   newCard.setAttribute("class", "bookcard");
-  newCard.setAttribute("data-index", index)
   const bookDetails = document.createElement("p");
   bookDetails.innerHTML = `Title: ${book.title}<br>
     Author: ${book.author}<br>
@@ -135,28 +141,28 @@ const createNewBookCard = (book, index) => {
   changeReadStatus.setAttribute("class", "updateReadingStatus");
   changeReadStatus.type = "button";
   changeReadStatus.value = "Change Read Status";
-  changeReadStatus.addEventListener('click', () => {
-    console.log("Button has benen clicked")
+  changeReadStatus.addEventListener("click", () => {
+    console.log("Button has benen clicked");
     console.log(`Title: ${i.title}<br>
     Author: ${i.title}<br>
-    Pages: ${i.pages}<br>`)
-    console.log(book.haveRead)
-    book.haveRead === true ? book.haveRead = false : book.haveRead = true;
+    Pages: ${i.pages}<br>`);
+    console.log(book.haveRead);
+    book.haveRead === true ? (book.haveRead = false) : (book.haveRead = true);
     bookDetails.innerHTML = `Title: ${book.title}<br>
     Author: ${book.author}<br>
     Pages: ${book.pages}<br>
     Read: ${book.haveRead}<br>        
     `;
-  })
+  });
 
-  deleteButton.addEventListener('click', () => {
-    console.log("Delete button has benen clicked")
-    bookList.removeChild(newCard)
-    myLibrary.splice(index, 1)
-  })
+  deleteButton.addEventListener("click", () => {
+    console.log("Delete button has benen clicked");
+    bookList.removeChild(newCard);
+    myLibrary = myLibrary.filter((b) => b.id !== book.id);
+  });
 
   newCard.appendChild(bookDetails);
   newCard.appendChild(deleteButton);
   newCard.appendChild(changeReadStatus);
-  bookList.appendChild(newCard);
+  return newCard;
 };
