@@ -99,24 +99,32 @@ const showInputValues = () => {
 newSubmission.addEventListener("click", () => {
   console.log("Submission button clicked!");
   addNewBook();
-  createNewBookCard();
+  myLibrary.forEach((book, index) => {
+    if (index === 0){
+      createNewBookCard(book, index)
+    } else if (index > 0) {
+      createNewBookCard(book, index+1)
+    }
+  })
   eraseAllInput();
   // showInputValues()
-  displayBooks();
+  // displayBooks();
   formVisibility.style.visibility = "hidden";
   visibleForm = false;
   bookList.style.opacity = 1;
 });
 
 // creating the Cards for each book containing the info of the book.
-const createNewBookCard = () => {
+const createNewBookCard = (book, index) => {
+  // console.log(book.title, book.author, book.pages, book.haveRead)
   const newCard = document.createElement(`div`);
   newCard.setAttribute("class", "bookcard");
+  newCard.setAttribute("data-index", index)
   const bookDetails = document.createElement("p");
-  bookDetails.innerHTML = `Title: ${bookTitle.value}<br>
-    Author: ${bookAuthor.value}<br>
-    Pages: ${bookPages.value}<br>
-    Read: ${bookHaveRead.checked}<br>        
+  bookDetails.innerHTML = `Title: ${book.title}<br>
+    Author: ${book.author}<br>
+    Pages: ${book.pages}<br>
+    Read: ${book.haveRead}<br>        
     `;
   bookDetails.setAttribute("class", "bookDetails");
   var deleteButton = document.createElement("input");
@@ -129,22 +137,22 @@ const createNewBookCard = () => {
   changeReadStatus.value = "Change Read Status";
   changeReadStatus.addEventListener('click', () => {
     console.log("Button has benen clicked")
-    console.log(`Title: ${bookTitle.value}<br>
-    Author: ${bookAuthor.value}<br>
-    Pages: ${bookPages.value}<br>`)
-    console.log(bookHaveRead.checked)
-    bookHaveRead.checked === true ? bookHaveRead.checked = false : bookHaveRead.checked = true;
-    bookDetails.innerHTML = `Title: ${bookTitle.value}<br>
-    Author: ${bookAuthor.value}<br>
-    Pages: ${bookPages.value}<br>
-    Read: ${bookHaveRead.checked}<br>        
+    console.log(`Title: ${i.title}<br>
+    Author: ${i.title}<br>
+    Pages: ${i.pages}<br>`)
+    console.log(book.haveRead)
+    book.haveRead === true ? book.haveRead = false : book.haveRead = true;
+    bookDetails.innerHTML = `Title: ${book.title}<br>
+    Author: ${book.author}<br>
+    Pages: ${book.pages}<br>
+    Read: ${book.haveRead}<br>        
     `;
   })
 
   deleteButton.addEventListener('click', () => {
     console.log("Delete button has benen clicked")
     bookList.removeChild(newCard)
-
+    myLibrary.splice(index, 1)
   })
 
   newCard.appendChild(bookDetails);
