@@ -1,10 +1,5 @@
 let myLibrary = [];
 
-/* const button = document.body.querySelector("button")
-button.addEventListener('click', (e) => {
-
-}) */
-
 function Book(title, author, pages, haveRead) {
   this.id = Math.random().toString(36).slice(2);
   this.title = title;
@@ -27,13 +22,6 @@ function addBookToLibrary(title, author, pages, haveRead) {
   let book = new Book(title, author, pages, haveRead);
   myLibrary.push(book);
   return book;
-}
-
-// Displaying each book in the myLibrary array
-function displayBooks() {
-  myLibrary.forEach((element) => {
-    console.log(element.info());
-  });
 }
 
 // initial functionality
@@ -66,7 +54,6 @@ const newSubmission = document.body.querySelector("#submitbutton");
 
 // Submit button functionality
 const addNewBook = () => {
-  console.log("addNewBook function initiated");
   if ((bookTitle.value && bookAuthor.value && bookPages.value !== "") || null) {
     return addBookToLibrary(
       bookTitle.value,
@@ -84,38 +71,16 @@ const allInputField = document.body.querySelectorAll("input");
 
 // Erase button for input fields after new submission
 const eraseAllInput = () => {
-  console.log("eraseAllInput function initiated");
   allInputField.forEach((input) => (input.value = null));
   newSubmission.value = "Submit";
-  console.log(`All input has been erased.`);
-};
-
-const showInputValues = () => {
-  console.log("showInputValues function initiated");
-  allInputField.forEach((input) =>
-    console.log(`${input.id} has value: ${input.value}`)
-  );
 };
 
 // Event listener for Submission execution
 newSubmission.addEventListener("click", () => {
-  console.log("Submission button clicked!");
   const book = addNewBook();
   const newCard = createNewBookCard(book);
   bookList.appendChild(newCard);
-
-  //   myLibrary.forEach((book, index) => {
-  //     if (index === 0){
-  //         const newCard = createNewBookCard(book, index);
-  //         bookList.appendChild(newCard);
-  //     } else if (index > 0) {
-  //       const newCard = createNewBookCard(book, index+1);
-  //       bookList.appendChild(newCard);
-  //     }
-  //   })
   eraseAllInput();
-  // showInputValues()
-  // displayBooks();
   formVisibility.style.visibility = "hidden";
   visibleForm = false;
   bookList.style.opacity = 1;
@@ -123,7 +88,6 @@ newSubmission.addEventListener("click", () => {
 
 // creating the Cards for each book containing the info of the book.
 const createNewBookCard = (book) => {
-  // console.log(book.title, book.author, book.pages, book.haveRead)
   const newCard = document.createElement(`div`);
   newCard.setAttribute("class", "bookcard");
   const bookDetails = document.createElement("p");
@@ -141,12 +105,8 @@ const createNewBookCard = (book) => {
   changeReadStatus.setAttribute("class", "updateReadingStatus");
   changeReadStatus.type = "button";
   changeReadStatus.value = "Change Read Status";
+
   changeReadStatus.addEventListener("click", () => {
-    console.log("Button has benen clicked");
-    console.log(`Title: ${i.title}<br>
-    Author: ${i.title}<br>
-    Pages: ${i.pages}<br>`);
-    console.log(book.haveRead);
     book.haveRead === true ? (book.haveRead = false) : (book.haveRead = true);
     bookDetails.innerHTML = `Title: ${book.title}<br>
     Author: ${book.author}<br>
@@ -156,7 +116,6 @@ const createNewBookCard = (book) => {
   });
 
   deleteButton.addEventListener("click", () => {
-    console.log("Delete button has benen clicked");
     bookList.removeChild(newCard);
     myLibrary = myLibrary.filter((b) => b.id !== book.id);
   });
