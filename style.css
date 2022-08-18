@@ -91,7 +91,7 @@ input[type=text] {
 
 
 .booklist {
-    display: inline grid;
+    display: inline-grid;
     grid-template: repeat(3, minmax(0, 1fr)) / repeat(5, minmax(0, 1fr));
     width: 95%;
 }
