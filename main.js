@@ -15,6 +15,30 @@ function Book(title, author, pages, haveRead) {
   };
 }
 
+// rewrite Book function as a Class
+
+class BookClass {
+  constructor(id, title, author, pages, haveRead) {
+    this.id = Math.random().toString(36).slice(2);
+    this.title = title;
+    this.author = author;
+    this.pages = pages;
+    this.haveRead = haveRead;
+  }
+  get info() {
+    if (haveRead) {
+      return `${title} by ${author}, ${pages} pages, book read`;
+    } else {
+      return `${title} by ${author}, ${pages} pages, not read yet`;
+    }
+  }
+  set updateReadState(readState) {
+    return readState === true
+      ? book.haveRead === false
+      : book.haveRead === true;
+  }
+}
+
 // Adding books to library function
 
 function addBookToLibrary(title, author, pages, haveRead) {
