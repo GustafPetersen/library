@@ -1,24 +1,24 @@
 let myLibrary = [];
 
-function Book(title, author, pages, haveRead) {
-  this.id = Math.random().toString(36).slice(2);
-  this.title = title;
-  this.author = author;
-  this.pages = pages;
-  this.haveRead = haveRead;
-  this.info = function () {
-    if (haveRead === true) {
-      return `${title} by ${author}, ${pages} pages, book read`;
-    } else {
-      return `${title} by ${author}, ${pages} pages, not read yet`;
-    }
-  };
-}
+// function Book(title, author, pages, haveRead) {
+//   this.id = Math.random().toString(36).slice(2);
+//   this.title = title;
+//   this.author = author;
+//   this.pages = pages;
+//   this.haveRead = haveRead;
+//   this.info = function () {
+//     if (haveRead === true) {
+//       return `${title} by ${author}, ${pages} pages, book read`;
+//     } else {
+//       return `${title} by ${author}, ${pages} pages, not read yet`;
+//     }
+//   };
+// }
 
 // rewrite Book function as a Class
 
 class BookClass {
-  constructor(id, title, author, pages, haveRead) {
+  constructor(title, author, pages, haveRead) {
     this.id = Math.random().toString(36).slice(2);
     this.title = title;
     this.author = author;
@@ -43,8 +43,9 @@ class BookClass {
 
 function addBookToLibrary(title, author, pages, haveRead) {
   // do stuff here
-  let book = new Book(title, author, pages, haveRead);
+  const book = new BookClass(title, author, pages, haveRead);
   myLibrary.push(book);
+  console.log(book)
   return book;
 }
 
@@ -131,7 +132,8 @@ const createNewBookCard = (book) => {
   changeReadStatus.value = "Change Read Status";
 
   changeReadStatus.addEventListener("click", () => {
-    book.haveRead === true ? (book.haveRead = false) : (book.haveRead = true);
+    // book.haveRead === true ? (book.haveRead = false) : (book.haveRead = true);
+    book.updateReadState
     bookDetails.innerHTML = `Title: ${book.title}<br>
     Author: ${book.author}<br>
     Pages: ${book.pages}<br>
