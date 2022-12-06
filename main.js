@@ -1,22 +1,5 @@
 let myLibrary = [];
 
-// function Book(title, author, pages, haveRead) {
-//   this.id = Math.random().toString(36).slice(2);
-//   this.title = title;
-//   this.author = author;
-//   this.pages = pages;
-//   this.haveRead = haveRead;
-//   this.info = function () {
-//     if (haveRead === true) {
-//       return `${title} by ${author}, ${pages} pages, book read`;
-//     } else {
-//       return `${title} by ${author}, ${pages} pages, not read yet`;
-//     }
-//   };
-// }
-
-// rewrite Book function as a Class
-
 class BookClass {
   constructor(title, author, pages, haveRead) {
     this.id = Math.random().toString(36).slice(2);
