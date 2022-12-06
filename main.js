@@ -132,8 +132,7 @@ const createNewBookCard = (book) => {
   changeReadStatus.value = "Change Read Status";
 
   changeReadStatus.addEventListener("click", () => {
-    // book.haveRead === true ? (book.haveRead = false) : (book.haveRead = true);
-    book.updateReadState
+    book.haveRead === true ? (book.haveRead = false) : (book.haveRead = true);
     bookDetails.innerHTML = `Title: ${book.title}<br>
     Author: ${book.author}<br>
     Pages: ${book.pages}<br>
